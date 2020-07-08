@@ -11,20 +11,20 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-const fetchPost = () => {
-  axios
-    .get('https://jsonplaceholder.typicode.com/posts')
-    .then((response) => {
-      // handle success
-      console.log(response.data[2].title);
-    })
-    .catch((error) => {
-      // handle error
-      console.log(error.message);
-    });
-};
+// const fetchPost = () => {
+//   axios
+//     .get('https://jsonplaceholder.typicode.com/posts')
+//     .then((response) => {
+//       // handle success
+//       console.log(response.data[2].title);
+//     })
+//     .catch((error) => {
+//       // handle error
+//       console.log(error.message);
+//     });
+// };
 
-fetchPost();
+//fetchPost();
 
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, {
@@ -34,5 +34,11 @@ mongoose.connect(uri, {
 });
 const connection = mongoose.connection;
 connection.once('open', () => console.log('DB connection successful'));
+
+const booksRouter = require('./routes/books');
+const usersRouter = require('./routes/users');
+
+app.use('/books', booksRouter);
+app.use('/users', usersRouter);
 
 app.listen(port, () => console.log(`Server is running on port: ${port}`));
