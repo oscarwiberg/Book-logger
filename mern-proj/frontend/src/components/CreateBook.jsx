@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import axios from 'axios';
 
 export default class CreateBook extends Component {
   constructor(props) {
@@ -22,9 +23,13 @@ export default class CreateBook extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      users: ['test user'],
-      username: 'test user',
+    axios.get('http://localhost:5000/users/').then((res) => {
+      if (res.data.length > 0) {
+        this.setState({
+          users: res.data.map((user) => user.username),
+          username: res.data[0].username,
+        });
+      }
     });
   }
 
@@ -60,7 +65,8 @@ export default class CreateBook extends Component {
       pages: this.state.pages,
       date: this.state.date,
     };
-    console.log(book);
+
+    axios.post('http://localhost:5000/books/add', book);
 
     window.location = '/';
   }
@@ -68,7 +74,7 @@ export default class CreateBook extends Component {
   render() {
     return (
       <div>
-        <h3>Create new book log</h3>
+        <h3>Add new book</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label>Username: </label>
