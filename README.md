@@ -1,2 +1,2 @@
-# mern-project
-Exploring the MERN-stack
+# Book logger
+Log the books you read. React, Node, Express, MongoDB Atlas, Mongoose, Bootstrap
