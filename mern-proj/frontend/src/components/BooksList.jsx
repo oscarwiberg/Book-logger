@@ -69,10 +69,10 @@ export default class BooksList extends Component {
           <thead className="thead-light">
             <tr>
               <th>Username</th>
-              <th>Description</th>
-              <th>Duration</th>
+              <th>Title</th>
+              <th>Pages</th>
               <th>Date</th>
-              <th>Actions</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>{this.booksList()}</tbody>
